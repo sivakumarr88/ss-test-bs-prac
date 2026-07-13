@@ -87,11 +87,11 @@ pipeline {
                         docker rm -f ${DEV_CONTAINER} || true
                         docker run -d \
                             --name ${DEV_CONTAINER} \
-                            -p ${DEV_PORT}:80 \
+                            --network host \
                             ${IMAGE_NAME}:develop
                     """
                 }
-                echo "✅ Deployed to DEV → http://localhost:${DEV_PORT}"
+                echo "✅ Deployed to DEV container on host network"
             }
         }
 
@@ -121,11 +121,11 @@ pipeline {
                         docker rm -f ${PROD_CONTAINER} || true
                         docker run -d \
                             --name ${PROD_CONTAINER} \
-                            -p ${PROD_PORT}:80 \
+                            --network host \
                             ${IMAGE_NAME}:develop
                     """
                 }
-                echo "✅ Deployed to PROD → http://localhost:${PROD_PORT}"
+                echo "✅ Deployed to PROD container on host network"
             }
         }
     }
